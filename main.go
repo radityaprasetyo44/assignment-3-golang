@@ -2,6 +2,7 @@ package main
 
 import (
 	"assignment3/controllers"
+	"assignment3/services"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,7 @@ import (
 
 func init() {
 	go func() {
-		controllers.Scheduler()
+		services.Scheduler()
 	}()
 }
 

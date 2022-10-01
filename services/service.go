@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"log"
+	"math/rand"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,4 +32,27 @@ func GetStatus() (filePath string, data gin.H, err error) {
 		"wind_status":  helpers["wind_status"],
 		"water_status": helpers["water_status"],
 	}, nil
+}
+
+func Scheduler() {
+	for {
+		log.Println("Scheduler: ----- Change Status -----")
+
+		newStatus := map[string]interface{}{
+			"status": map[string]interface{}{
+				"water": rand.Intn(100-1) + 1,
+				"wind":  rand.Intn(100-1) + 1,
+			},
+		}
+		content, err := json.Marshal(newStatus)
+		if err != nil {
+			log.Fatal(err)
+		}
+		err = ioutil.WriteFile("models/status.json", content, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		time.Sleep(15 * time.Second)
+	}
 }
