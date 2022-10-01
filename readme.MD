@@ -7,4 +7,5 @@ Assignment 3 Golang
 go run main.go
 
 run endpoint on web
+
 ex: localhost:9000/status
