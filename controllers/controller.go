@@ -3,7 +3,6 @@ package controllers
 import (
 	"assignment3/services"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -37,7 +36,7 @@ func Scheduler() {
 		}
 		content, err := json.Marshal(newStatus)
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 		}
 		err = ioutil.WriteFile("models/status.json", content, 0644)
 		if err != nil {
